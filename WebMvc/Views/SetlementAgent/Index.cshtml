@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div style="padding: 15px;">
+    <div class="demoTable">
+       保单号：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="PolicyNo" autocomplete="off">
+        </div>
+        订单号:
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="OrderNo" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+    <table id="demo" lay-filter="test"></table>
+</div>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            , height: 312
+            , url: '/SetlementAgent/SetlementAgentList/' //数据接口
+            , cols: [[ //表头
+                { field: 'Id', title: 'ID', width: 80, fixed: 'left' }
+                , { field: 'MerchantNo', title: '流水号', width: 177 }
+                , { field: 'UserId', title: '会员ID', width: 80 }
+                , { field: 'OrderNo', title: '订单号', width: 80 }
+                , { field: 'PolicyNo', title: '保单号', width: 80 }
+                , { field: 'Name', title: '名称', width: 80 }
+                , { field: 'BankCardNo', title: '银行卡号', width: 177 }
+                , { field: 'IdentityCardNo', title: '身份证号', width: 80 }
+                , { field: 'BankName', title: '开户行', width: 80 }
+                , { field: 'IdentityType', title: '证件类型', width: 80 }
+                , { field: 'Amount', title: '金额', width: 80 }
+                , { field: 'Status', title: '状态', width: 135}
+                , { field: 'AddTime', title: '添加时间', width: 135 }
+            ]]
+            , id: 'testReload'
+            , page: {
+                layout: ['prev', 'page', 'next', 'skip', 'count']
+            }
+        });
+        var $ = layui.$, active = {
+            reload: function () {
+                var PolicyNo = $('#PolicyNo');
+                var OrderNo = $('#OrderNo');
+
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        PolicyNo: PolicyNo.val(),
+                        OrderNo: OrderNo.val(),
+                    }
+                }, 'data');
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>

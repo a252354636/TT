@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div style="padding: 15px;">
+    <div class="demoTable">
+        姓名：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="Name" autocomplete="off">
+        </div>
+        身份证号:
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="IdentityCardNo" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+    <table id="tab" lay-filter="tab"></table>
+</div>
+<script type="text/html" id="barDemo">
+    {{#  if(d.ImgPath === ''){ }}
+    无
+    {{#  }  else{ }}
+    <img style="width:20px;max-height:20px" lay-event="rowclick" src="{{d.ImgPath}}">
+    {{#  } }}
+</script>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#tab'
+            , height: 312
+            , url: '/Merge/MergeHaveList/' //数据接口
+            , cols: [[ //表头
+                { field: 'MergeId', title: 'ID', width: 80, fixed: 'left' }
+                , { field: 'MerchantNo', title: '流水号', width: 177 }
+                , { field: 'UserId', title: '会员ID', width: 80 }
+                , { field: 'OrderCount', title: '合并订单数', width: 80 }
+                , { field: 'Amount', title: '合并金额', width: 80 }
+                , { field: 'Name', title: '城市', width: 80 }
+                , { field: 'BankCardNo', title: '银行卡号', width: 177 }
+                , { field: 'IdentityCardNo', title: '身份证号', width: 80 }
+                , { field: 'BankName', title: '开户行', width: 80 }
+                , { field: 'IdentityType', title: '证件类型', width: 80 }
+                , { field: 'Status', title: '状态', width: 135}
+                , { field: 'PayDate', title: '支付时间', width: 80 }
+                , { field: 'UpdateTime', title: '更新时间', width: 80 }
+                , { fixed: 'right', title: '凭证', width: 135, toolbar: '#barDemo' }
+            ]]
+            , id: 'testReload'
+            , page: {
+                layout: ['prev', 'page', 'next', 'skip', 'count']
+            }
+        });
+        table.on("tool(tab)", function (obj) {
+            var data = obj.data;
+            if (obj.event === "rowclick") {
+                layer.open({
+                    type: 1,
+                    title: false,
+                    closeBtn: 0,
+                    area: ['auto'],
+                    skin: 'layui-layer-nobg', //没有背景色
+                    shadeClose: true,
+                    content: '<img src="' + data.ImgPath+'">'
+                });
+            }
+        });
+        var $ = layui.$, active = {
+            reload: function () {
+                var Name = $('#Name');
+                var IdentityCardNo = $('#IdentityCardNo');
+
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        Name: Name.val(),
+                        IdentityCardNo: IdentityCardNo.val(),
+                    }
+                }, 'data');
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>

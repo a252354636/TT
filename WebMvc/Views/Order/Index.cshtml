@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div style="padding: 15px;">
+    <div class="demoTable">
+       保单号：
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="PolicyNo" autocomplete="off">
+        </div>
+        订单号:
+        <div class="layui-inline">
+            <input class="layui-input" name="id" id="OrderNo" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+    <table id="demo" lay-filter="test"></table>
+</div>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            , height: 312
+            , url: '/Order/OrderList/' //数据接口
+            , cols: [[ //表头
+                { field: 'OrderId', title: 'ID', width: 80, fixed: 'left' }
+                , { field: 'OrderNo', title: '订单号', width: 177 }
+                , { field: 'Category', title: '类别', width: 80 }
+                , { field: 'InsurerType', title: '险种', width: 80 }
+                , { field: 'ProvinceCode', title: '省份', width: 80 }
+                , { field: 'CityCode', title: '城市', width: 80 }
+                , { field: 'InsurerName', title: '保险公司', width: 177 }
+                , { field: 'OrderSourceOrganization', title: '出单机构', width: 80 }
+                , { field: 'SettlementOrganization', title: '结算机构', width: 80 }
+                , { field: 'OrderSourceDate', title: '出单日期', width: 80 }
+                , { field: 'PolicyNo', title: '保单号', width: 135}
+                , { field: 'EndorsementsNo', title: '批单号', width: 80 }
+                , { field: 'InsuranceStartDate', title: '起保日期', width: 80 }
+                , { field: 'ApplicantName', title: '投保人', width: 80 }
+                , { field: 'Insured', title: '被险保人', width: 80 }
+                , { field: 'IsLicence', title: '是否有车牌', width: 80 }
+                , { field: 'LicenceNo', title: '车牌号', width: 80 }
+                , { field: 'VehicleFrameNo', title: '车架号', width: 80 }
+                , { field: 'EngineNo', title: '发动机号', width: 80 }
+                , { field: 'DebutDate', title: '初登日期', width: 80 }
+                , { field: 'PremiumAmount', title: '保费', width: 80 }
+                , { field: 'VehicleAndVesselTaxAmount', title: '车船税', width: 135 }
+                , { field: 'ProcedureFeeRate', title: '手续费点位', width: 135 }
+                , { field: 'ProcedureFeeClearingForm', title: '手续费结算方式', width: 135 }
+                , { field: 'ProcedureFeeClearingFee', title: '手续费结算金额', width: 135 }
+            ]]
+            , id: 'testReload'
+            , page: {
+                layout: ['prev', 'page', 'next', 'skip', 'count']
+            }
+        });
+        var $ = layui.$, active = {
+            reload: function () {
+                var PolicyNo = $('#PolicyNo');
+                var OrderNo = $('#OrderNo');
+
+                //执行重载
+                table.reload('testReload', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    , where: {
+                        PolicyNo: PolicyNo.val(),
+                        OrderNo: OrderNo.val(),
+                    }
+                }, 'data');
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
