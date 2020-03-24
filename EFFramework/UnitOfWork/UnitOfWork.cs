@@ -12,7 +12,7 @@ namespace EFFramework.UnitOfWork
         private BaseDbContext context;
         private bool disposed;
         private Dictionary<string, object> repositories;
-        private QueryReporitory qr;
+    
         public UnitOfWorkContext()
         {
             context = new BaseDbContext();
@@ -35,11 +35,28 @@ namespace EFFramework.UnitOfWork
             }
             return (Repository<T>)repositories[type];
         }
-        private QueryReporitory Repository()
+        //private QueryReporitory Repository()
+        //{
+        //    if (qr == null)
+        //        qr = (QueryReporitory)Activator.CreateInstance(typeof(QueryReporitory), context);
+        //    return qr;
+        //}
+        private QueryReporitory<T> QueryReporitory<T>() where T : IBaseEntity
         {
-            if (qr == null)
-                qr = (QueryReporitory)Activator.CreateInstance(typeof(QueryReporitory), context);
-            return qr;
+            if (repositories == null)
+            {
+                repositories = new Dictionary<string, object>();
+            }
+
+            var type = typeof(T).Name;
+
+            if (!repositories.ContainsKey(type))
+            {
+                var repositoryType = typeof(QueryReporitory<>);
+                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), context);
+                repositories.Add(type, repositoryInstance);
+            }
+            return (QueryReporitory<T>)repositories[type];
         }
         public void Add<T>(T entity) where T : IBaseEntity
         {
@@ -59,14 +76,14 @@ namespace EFFramework.UnitOfWork
             var rep = this.Repository<T>();
             return rep.GetModel(filter);
         }
-        public List<TM> GetSqlQuery<TM>(string sql, params object[] parameters)
+        public List<TKey> GetSqlQuery<T,TKey>(string sql, params object[] parameters) where T : IBaseEntity
         {
-            return this.Repository().GetSqlQuery<TM>(sql, parameters);
+            return this.QueryReporitory<T>().GetSqlQuery<TKey>(sql, parameters);
         }
 
-        public IQueryable<T> GetListByPage<T, TKey>(ref int Count, int pageIndex, int pageSize, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderBy, bool isAscOrDesc) where T : IBaseEntity
+        public IQueryable<T> GetListByPage<T, TKey>(ref int Count, int pageIndex, int pageSize, Expression<Func<T,bool>> whereLambda, Expression<Func<T,TKey>> orderBy, bool isAscOrDesc) where T : IBaseEntity
         {
-            return Repository().GetListByPage(ref Count, pageIndex, pageSize, whereLambda, orderBy, isAscOrDesc);
+            return QueryReporitory<T>().GetListByPage<T,TKey>(ref Count, pageIndex, pageSize, whereLambda, orderBy, isAscOrDesc);
         }
         public void Dispose()
         {

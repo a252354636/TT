@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFFramework", "EFFramework\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{DEF99E8E-91F7-432B-BA98-48D07C06B83B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{267D238C-AED0-4025-8DDE-C21DC21BAAB4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T4", "T4\T4.csproj", "{6BD6A3EB-DA8F-423C-8215-FD835F25FEF4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YTcms.Identity", "YTcms.Identity\YTcms.Identity.csproj", "{5B7E2305-DB2F-462C-B9ED-FB043D5A7DCD}"
@@ -16,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMvc", "WebMvc\WebMvc.csproj", "{F2658C26-61F7-4857-B4BE-89707A244B62}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataDTO", "DataDTO\DataDTO.csproj", "{B0E4A59E-9E9D-4E65-A51D-32BDFAF71E7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TT.Service", "TT.Service\TT.Service.csproj", "{B2010977-503F-46B1-8B2C-DD079671BD5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{CE21935D-B7B1-4101-A553-1BA98412D5B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +33,6 @@ Global
 		{DEF99E8E-91F7-432B-BA98-48D07C06B83B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEF99E8E-91F7-432B-BA98-48D07C06B83B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEF99E8E-91F7-432B-BA98-48D07C06B83B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{267D238C-AED0-4025-8DDE-C21DC21BAAB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{267D238C-AED0-4025-8DDE-C21DC21BAAB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{267D238C-AED0-4025-8DDE-C21DC21BAAB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{267D238C-AED0-4025-8DDE-C21DC21BAAB4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BD6A3EB-DA8F-423C-8215-FD835F25FEF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6BD6A3EB-DA8F-423C-8215-FD835F25FEF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BD6A3EB-DA8F-423C-8215-FD835F25FEF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +49,14 @@ Global
 		{B0E4A59E-9E9D-4E65-A51D-32BDFAF71E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0E4A59E-9E9D-4E65-A51D-32BDFAF71E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0E4A59E-9E9D-4E65-A51D-32BDFAF71E7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2010977-503F-46B1-8B2C-DD079671BD5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2010977-503F-46B1-8B2C-DD079671BD5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2010977-503F-46B1-8B2C-DD079671BD5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2010977-503F-46B1-8B2C-DD079671BD5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE21935D-B7B1-4101-A553-1BA98412D5B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE21935D-B7B1-4101-A553-1BA98412D5B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE21935D-B7B1-4101-A553-1BA98412D5B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE21935D-B7B1-4101-A553-1BA98412D5B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -34,7 +34,7 @@ namespace WebMvc.Controllers
                 (int)MergeStatusEnum.HasUpdated,
                 (int)MergeStatusEnum.NeedUpdated
             };
-            Service.MergeService orderInfo = new Service.MergeService();
+            TT.Service.MergeService orderInfo = new TT.Service.MergeService();
             var ret = orderInfo.GetMergePayInfoList(query);
 
             return Json(ret, JsonRequestBehavior.AllowGet);

@@ -8,7 +8,5 @@ namespace EFFramework.Repository
 {
     public interface IRepository
     {
-        void Add(object entity);
-        void SaveChanges();
-        }
+    }
 }

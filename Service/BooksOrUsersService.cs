@@ -1,5 +1,4 @@
-﻿using DataDTO;
-using EFFramework.Service;
+﻿using EFFramework.Service;
 using Models.Entitys;
 using System;
 using System.Collections.Generic;
