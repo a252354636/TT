@@ -55,16 +55,16 @@ namespace TT.Service
                     IdentityCardNo = m.IdentityCardNo,
                     BankName = m.BankName,
                     IdentityType = BaseEnum.GetEnumDescription(typeof(IdentityTypeEnum), m.IdentityType),
-                    PayDate = m.PayDate.Value.ToString(),
+                    PayDate = m.PayDate==null?"":m.PayDate.ToString(),
                     RepulseRemark = m.RepulseRemark,
                     ImgPath = m.ImgPath,
-                    UpdateTime = m.UpdateTime.ToString(),
+                    UpdateTime = m.UpdateTime==null?"":m.UpdateTime.ToString(),
                     AddTime = m.AddTime,
                     Status = BaseEnum.GetEnumDescription(typeof(MergeStatusEnum), m.Status)
                 };
                 retlist.Add(merge);
             }
-            return new PageResult() { data = retlist, count = count };
+            return new PageResult() { success = true, data = retlist, count = count };
         }
     }
 }

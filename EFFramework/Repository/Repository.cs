@@ -8,7 +8,7 @@ using EFFramework.DLog;
 
 namespace EFFramework.Repository
 {
-    public class Repository<T>: IRepository<T> where T : IBaseEntity
+    public class Repository<T>: IRepository where T : IBaseEntity
     {
         private BaseDbContext uw;
         private IDbSet<T> entities;

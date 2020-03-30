@@ -27,13 +27,12 @@ namespace EFFramework.Service
         }
         public IQueryable<T> GetListByPage<T, TKey>(ref int Count, int pageIndex, int pageSize, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderBy, bool isAscOrDesc) where T : IBaseEntity
         {
-            return uw.GetListByPage(ref Count, pageIndex, pageSize, whereLambda, orderBy, isAscOrDesc);
+            return uw.GetListByPage<T,TKey>(ref Count, pageIndex, pageSize, whereLambda, orderBy, isAscOrDesc);
         }
 
         public T GetModel<T>(Expression<Func<T, bool>> filter) where T : IBaseEntity
         {
             return uw.GetModel(filter);
         }
+    }
 }
-}
-
