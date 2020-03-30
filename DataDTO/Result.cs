@@ -10,27 +10,27 @@ namespace DataDTO
     {
         public Result()
         {
-            success = false;
-            msg = "操作失败";
-            result = "0";
+            success = true;
+            msg = "操作成功！";
+            code = "0";
         }
         public bool success { get; set; }
         public string msg { get; set; }
         public object data { get; set; }
-        public string result { get; set; }
+        public string code { get; set; }
     }
     public class PageResult
     {
         public PageResult()
         {
-            success = false;
-            msg = "操作失败";
-            result = "0";
+            success = true;
+            msg = "操作成功！";
+            code = "0";
         }
         public bool success { get; set; }
         public string msg { get; set; }
         public object data { get; set; }
-        public string result { get; set; }
+        public string code { get; set; }
         public int count { get; set; }
     }
 }

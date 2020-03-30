@@ -64,7 +64,7 @@ namespace TT.Service
                 };
                 retlist.Add(merge);
             }
-            return new PageResult() { success = true, data = retlist, count = count };
+            return new PageResult() { data = retlist, count = count };
         }
     }
 }

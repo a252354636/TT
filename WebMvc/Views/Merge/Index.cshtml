@@ -35,7 +35,14 @@
             elem: '#tab'
             , height: 312
             , url: '/Merge/MergeWithoutList/' //数据接口
-
+            , parseData: function (res) {
+                return {
+                    "code": res.code,
+                    "msg": res.msg, //解析提示文本
+                    "count": res.count, //解析数据长度
+                    "data": res.data //解析数据列表};
+                };
+            }
             , cols: [[ //表头
                 { field: 'MergeId', title: 'ID', width: 80, fixed: 'left' }
                 , { field: 'MerchantNo', title: '流水号', width: 177 }
