@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using EFFramework.DLog;
+using System.Data.Entity.Infrastructure;
 
 namespace EFFramework.Repository
 {
@@ -31,6 +32,17 @@ namespace EFFramework.Repository
         public void Add(T entity)
         {
             this.Entities.Add(entity);
+        }
+        /// <summary>
+        /// 单个对象修改
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public void Update(T model)
+        {
+            DbEntityEntry entry = uw.Entry<T>(model);
+            uw.Set<T>().Attach(model);
+            entry.State = EntityState.Modified;
         }
         public void SaveChanges()
         {

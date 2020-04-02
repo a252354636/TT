@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EFFramework.DLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,19 +19,24 @@ namespace DataDTO
         public string msg { get; set; }
         public object data { get; set; }
         public string code { get; set; }
-    }
-    public class PageResult
-    {
-        public PageResult()
+
+
+        public Result GetException(Exception exception)
         {
-            success = true;
-            msg = "操作成功！";
-            code = "0";
+            this.msg = exception.Message;
+            this.success = false;
+            this.code = "-1";
+            Log.Error(GetMsg(exception));
+            return this;
         }
-        public bool success { get; set; }
-        public string msg { get; set; }
-        public object data { get; set; }
-        public string code { get; set; }
+
+        private string GetMsg(Exception exception)
+        {
+            return "异常:Message=" + exception.Message + " || Source=" + exception.Source + " || TargetSite=" + exception.TargetSite+ " || InnerException=" + exception.InnerException.InnerException.Message;
+        }
+    }
+    public class PageResult: Result
+    {
         public int count { get; set; }
     }
 }

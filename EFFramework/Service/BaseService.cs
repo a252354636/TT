@@ -20,7 +20,10 @@ namespace EFFramework.Service
         {
             uw.Add(entity);
         }
-
+        public void Update<T>(T model) where T : IBaseEntity
+        {
+            uw.Update<T>(model);
+        }
         public void Commit()
         {
             uw.Commit();

@@ -50,6 +50,11 @@
     <Compile Include="Response\Merge\MergeResponseDTO.cs" />
     <Compile Include="Result.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\EFFramework\EFFramework.csproj">
+      <Project>{b27dd841-828f-4db8-90e7-4d0a7f09a8da}</Project>
+      <Name>EFFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

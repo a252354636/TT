@@ -40,15 +40,25 @@ namespace WebMvc.Controllers
             return Json(ret, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpPost]
-        //public JsonResult Pay(int MergeId, string Url)
-        //{
-        //    Service.MergeService service = new Service.MergeService();
-        //    var ret = service.MergeRemitSucceed(MergeId, Url);
-        //    if (ret.success)
-        //    {
-        //    }
-        //    return Json(ret);
-        //}
+        [HttpPost]
+        public JsonResult Pay(int MergeId, string Url)
+        {
+            TT.Service.MergeService service = new TT.Service.MergeService();
+            var ret = service.MergeRemitSucceed(MergeId, Url);
+            if (ret.success)
+            {
+            }
+            return Json(ret);
+        }
+        [HttpPost]
+        public  JsonResult MergeBankInfoReject(int MergeId, string RepulseRemark)
+        {
+            TT.Service.MergeService service = new TT.Service.MergeService();
+            var ret = service.MergeBankInfoReject(MergeId,RepulseRemark);
+            if (ret.success)
+            {
+            }
+            return Json(ret);
+        }
     }
 }

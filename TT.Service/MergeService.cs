@@ -66,5 +66,36 @@ namespace TT.Service
             }
             return new PageResult() { data = retlist, count = count };
         }
+
+        public Result MergeRemitSucceed(int MergeId, string Url)
+        {
+            var m = GetModel<MergePayInfo>(s => s.MergeId == MergeId);
+            m.ImgPath = Url;
+            Commit();
+            return new Result();
+        }
+        public Result MergeBankInfoReject(int MergeId, string RepulseRemark)
+        {
+
+           // var m = GetModel<MergePayInfo>(s => s.MergeId == MergeId);
+
+            int count = 0;
+            var where = PredicateBuilder.True<MergePayInfo>();
+            var m = GetListByPage<MergePayInfo, DateTime>(ref count, 1, 10, where, by => by.AddTime, true).FirstOrDefault();
+            m.RepulseRemark = RepulseRemark;
+            Update<MergePayInfo>(m);
+            var mm = GetModel<MergePayInfo>(s => s.MergeId == 29);
+            mm.UserId = "12121 ";
+            try
+            {
+                Commit();
+            }
+            catch (Exception e)
+            {
+                return new Result().GetException(e);
+            }
+          
+            return new Result();
+        }
     }
 }

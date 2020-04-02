@@ -9,17 +9,24 @@ namespace EFFramework.UnitOfWork
 {
     public class UnitOfWorkContext : IDisposable
     {
-        private BaseDbContext context;
+        private BaseDbContext readContext;
+        private BaseDbContext writeContext;
         private bool disposed;
         private Dictionary<string, object> repositories;
     
-        public UnitOfWorkContext()
+        private void GetReadContext()
         {
-            context = new BaseDbContext();
+            if (readContext == null)
+                readContext = new BaseDbContext();
         }
-
+        private void GetWriteContext()
+        {
+            if (writeContext == null)
+                writeContext = new BaseDbContext();
+        }
         private Repository<T> Repository<T>() where T : IBaseEntity
         {
+            GetWriteContext();
             if (repositories == null)
             {
                 repositories = new Dictionary<string, object>();
@@ -30,21 +37,15 @@ namespace EFFramework.UnitOfWork
             if (!repositories.ContainsKey(type))
             {
                 var repositoryType = typeof(Repository<>);
-                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), context);
+                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), writeContext);
                 repositories.Add(type, repositoryInstance);
             }
             return (Repository<T>)repositories[type];
         }
 
-
-        //private QueryReporitory Repository()
-        //{
-        //    if (qr == null)
-        //        qr = (QueryReporitory)Activator.CreateInstance(typeof(QueryReporitory), context);
-        //    return qr;
-        //}
         private QueryReporitory QueryReporitory()
         {
+            GetReadContext();
             if (repositories == null)
             {
                 repositories = new Dictionary<string, object>();
@@ -54,7 +55,7 @@ namespace EFFramework.UnitOfWork
             if (!repositories.ContainsKey(type))
             {
        
-                var repositoryInstance = Activator.CreateInstance(repositoryType, context);
+                var repositoryInstance = Activator.CreateInstance(repositoryType, readContext);
                 repositories.Add(type, repositoryInstance);
             }
             return (QueryReporitory)repositories[type];
@@ -64,13 +65,20 @@ namespace EFFramework.UnitOfWork
             var rep = this.Repository<T>();
             rep.Add(entity);
         }
+        /// <summary>
+        /// 单个对象修改
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public void Update<T>(T model) where T : IBaseEntity
+        {
+            var rep = this.Repository<T>();
+            rep.Update(model);
+        }
         public void Commit()
         {
-            context.SaveChanges();
-            //foreach (var key in repositories)
-            //{
-            //    ((dynamic)key.Value).SaveChanges();
-            //}
+            GetWriteContext();
+            writeContext.SaveChanges();
         }
         public T GetModel<T>(Expression<Func<T, bool>> filter) where T : IBaseEntity
         {
@@ -97,7 +105,8 @@ namespace EFFramework.UnitOfWork
             {
                 if (disposing)
                 {
-                    context.Dispose();
+                    readContext.Dispose();
+                    writeContext.Dispose();
                 }
             }
             disposed = true;
