@@ -1,7 +1,9 @@
-﻿using EFFramework.Models;
+﻿using EFFramework.DLog;
+using EFFramework.Models;
 using EFFramework.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -24,7 +26,7 @@ namespace EFFramework.UnitOfWork
             if (writeContext == null)
                 writeContext = new BaseDbContext();
         }
-        private Repository<T> Repository<T>() where T : IBaseEntity
+        public Repository<T> Repository<T>() where T : IBaseEntity
         {
             GetWriteContext();
             if (repositories == null)
@@ -43,7 +45,7 @@ namespace EFFramework.UnitOfWork
             return (Repository<T>)repositories[type];
         }
 
-        private QueryReporitory QueryReporitory()
+        public QueryReporitory QueryReporitory()
         {
             GetReadContext();
             if (repositories == null)
@@ -75,25 +77,53 @@ namespace EFFramework.UnitOfWork
             var rep = this.Repository<T>();
             rep.Update(model);
         }
-        public void Commit()
+        public void SaveChanges()
         {
             GetWriteContext();
-            writeContext.SaveChanges();
+            bool saveFailed;
+            do
+            {
+                saveFailed = false;
+                try
+                {
+                    writeContext.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    saveFailed = true;
+
+                    // Get the current entity values and the values in the database
+                    var entry = ex.Entries.Single();
+                    var currentValues = entry.CurrentValues;
+                    var databaseValues = entry.GetDatabaseValues();
+
+                    // Choose an initial set of resolved values. In this case we
+                    // make the default be the values currently in the database.
+                    var resolvedValues = databaseValues.Clone();
+
+                    // Have the user choose what the resolved values should be
+                    HaveUserResolveConcurrency(currentValues, databaseValues, resolvedValues);
+
+                    // Update the original values with the database values and
+                    // the current values with whatever the user choose.
+                    entry.OriginalValues.SetValues(databaseValues);
+                    entry.CurrentValues.SetValues(resolvedValues);
+                  
+                }
+            } while (saveFailed);
         }
-        public T GetModel<T>(Expression<Func<T, bool>> filter) where T : IBaseEntity
+        public void HaveUserResolveConcurrency(DbPropertyValues currentValues,
+                               DbPropertyValues databaseValues,
+                               DbPropertyValues resolvedValues)
         {
-            var rep = this.Repository<T>();
-            return rep.GetModel(filter);
-        }
-        public List<TKey> GetSqlQuery<T,TKey>(string sql, params object[] parameters) where T : IBaseEntity
-        {
-            return this.QueryReporitory().GetSqlQuery<TKey>(sql, parameters);
+            // Show the current, database, and resolved values to the user and have
+            // them edit the resolved values to get the correct resolution.
+            Log.Error("并发异常");
         }
 
-        public IQueryable<T> GetListByPage<T, TKey>(ref int count, int pageIndex, int pageSize, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderBy, bool isAscOrDesc) where T : IBaseEntity
-        {
-            return QueryReporitory().GetListByPage<T, TKey>(ref count, pageIndex, pageSize, whereLambda, orderBy, isAscOrDesc);
-        }
+
+
+
         public void Dispose()
         {
             Dispose(true);

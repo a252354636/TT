@@ -71,7 +71,7 @@ namespace TT.Service
         {
             var m = GetModel<MergePayInfo>(s => s.MergeId == MergeId);
             m.ImgPath = Url;
-            Commit();
+            SaveChanges();
             return new Result();
         }
         public Result MergeBankInfoReject(int MergeId, string RepulseRemark)
@@ -85,10 +85,10 @@ namespace TT.Service
             m.RepulseRemark = RepulseRemark;
             Update<MergePayInfo>(m);
             var mm = GetModel<MergePayInfo>(s => s.MergeId == 29);
-            mm.UserId = "12121 ";
+            mm.UserId = "123 ";
             try
             {
-                Commit();
+                SaveChanges();
             }
             catch (Exception e)
             {

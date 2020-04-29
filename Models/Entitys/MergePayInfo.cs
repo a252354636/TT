@@ -8,79 +8,82 @@
 using System;
 using EFFramework.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 namespace Models.Entitys
-{   
+{
     /// <summary>
     /// 实体-MergePayInfo 
     /// </summary>
-	public class MergePayInfo :  IBaseEntity
-	{
-   
-			/// <summary>
-        /// 
-        /// </summary>
-         public int MergeId{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public string MerchantNo{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public string UserId{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public int OrderCount{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public decimal Amount{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public string Name{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public string BankCardNo{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public string IdentityCardNo{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public string BankName{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public short IdentityType{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public int Status{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public DateTime? PayDate{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public string RepulseRemark{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public string ImgPath{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public DateTime? UpdateTime{ get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-         public DateTime AddTime{ get; set; }
- 
+    public class MergePayInfo : IBaseEntity
+    {
 
-	}
+        /// <summary>
+        /// 
+        /// </summary>
+        public int MergeId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string MerchantNo { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string UserId { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int OrderCount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public decimal Amount { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string BankCardNo { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string IdentityCardNo { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string BankName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public short IdentityType { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Status { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? PayDate { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string RepulseRemark { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ImgPath { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? UpdateTime { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime AddTime { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
+    }
 }

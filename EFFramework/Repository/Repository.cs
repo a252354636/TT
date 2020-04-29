@@ -44,13 +44,11 @@ namespace EFFramework.Repository
             uw.Set<T>().Attach(model);
             entry.State = EntityState.Modified;
         }
-        public void SaveChanges()
-        {
-            this.uw.SaveChanges();
-        }
+
         public T GetModel(Expression<Func<T, bool>> filter)
         {
             return this.Entities.FirstOrDefault(filter);
         }
+
     }
 }
