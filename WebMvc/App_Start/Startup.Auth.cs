@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Microsoft.Owin.Extensions;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using WebMvc.Models;
@@ -25,6 +26,7 @@ namespace WebMvc
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
+                CookieSecure = CookieSecureOption.Never,
                 Provider = new CookieAuthenticationProvider
                 {
                     // 当用户登录时使应用程序可以验证安全戳。
@@ -33,7 +35,7 @@ namespace WebMvc
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // 使应用程序可以在双重身份验证过程中验证第二因素时暂时存储用户信息。
@@ -62,6 +64,22 @@ namespace WebMvc
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+
+
+    }
+    public static class ab
+    {
+        public static IAppBuilder UseCookieAuthentication(this IAppBuilder app,
+           CookieAuthenticationOptions options)
+        {
+            if (app == null)
+            {
+                throw new ArgumentNullException("app");
+            }
+            app.Use(typeof(CookieAuthenticationMiddleware), app, options); //将组件注册进owin管道，--CookieAuthenticationMiddleware--组件是操作加密coocie的
+            app.UseStageMarker(PipelineStage.Authenticate); // 然后结合例如IIS(owin的HOST)的某个阶段执行该组件，这里是认证阶段，还有七八种其他的例如post数据阶段等 
+            return app;
         }
     }
 }

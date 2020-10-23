@@ -9,13 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T4", "T4\T4.csproj", "{6BD6A3EB-DA8F-423C-8215-FD835F25FEF4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YTcms.Identity", "YTcms.Identity\YTcms.Identity.csproj", "{5B7E2305-DB2F-462C-B9ED-FB043D5A7DCD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMvc", "WebMvc\WebMvc.csproj", "{F2658C26-61F7-4857-B4BE-89707A244B62}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataDTO", "DataDTO\DataDTO.csproj", "{B0E4A59E-9E9D-4E65-A51D-32BDFAF71E7F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TT.Service", "TT.Service\TT.Service.csproj", "{B2010977-503F-46B1-8B2C-DD079671BD5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "基础架构", "基础架构", "{099A4A6B-C01F-4BBE-90CF-27089D7EC952}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,6 @@ Global
 		{6BD6A3EB-DA8F-423C-8215-FD835F25FEF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BD6A3EB-DA8F-423C-8215-FD835F25FEF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BD6A3EB-DA8F-423C-8215-FD835F25FEF4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B7E2305-DB2F-462C-B9ED-FB043D5A7DCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B7E2305-DB2F-462C-B9ED-FB043D5A7DCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B7E2305-DB2F-462C-B9ED-FB043D5A7DCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B7E2305-DB2F-462C-B9ED-FB043D5A7DCD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F2658C26-61F7-4857-B4BE-89707A244B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F2658C26-61F7-4857-B4BE-89707A244B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2658C26-61F7-4857-B4BE-89707A244B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -54,6 +50,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B27DD841-828F-4DB8-90E7-4D0A7F09A8DA} = {099A4A6B-C01F-4BBE-90CF-27089D7EC952}
+		{6BD6A3EB-DA8F-423C-8215-FD835F25FEF4} = {099A4A6B-C01F-4BBE-90CF-27089D7EC952}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CC3E03CE-C29B-49A7-8C50-508804807858}
