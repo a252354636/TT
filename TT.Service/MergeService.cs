@@ -71,7 +71,7 @@ namespace TT.Service
         {
             var m = GetModel<MergePayInfo>(s => s.MergeId == MergeId);
             m.ImgPath = Url;
-            SaveChanges();
+            Commit();
             return new Result();
         }
         public Result MergeBankInfoReject(int MergeId, string RepulseRemark)
@@ -83,12 +83,12 @@ namespace TT.Service
             var where = PredicateBuilder.True<MergePayInfo>();
             var m = GetListByPage<MergePayInfo, DateTime>(ref count, 1, 10, where, by => by.AddTime, true).FirstOrDefault();
             m.RepulseRemark = RepulseRemark;
-            Update<MergePayInfo>(m);
+            Update(m);
             var mm = GetModel<MergePayInfo>(s => s.MergeId == 29);
             mm.UserId = "123 ";
             try
             {
-                SaveChanges();
+                Commit();
             }
             catch (Exception e)
             {

@@ -77,7 +77,7 @@ namespace EFFramework.UnitOfWork
             var rep = this.Repository<T>();
             rep.Update(model);
         }
-        public void SaveChanges()
+        public void Commit()
         {
             GetWriteContext();
             bool saveFailed;

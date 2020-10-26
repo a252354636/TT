@@ -24,9 +24,9 @@ namespace EFFramework.Service
         {
             uw.Update<T>(model);
         }
-        public void SaveChanges()
+        public void Commit()
         {
-            uw.SaveChanges();
+            uw.Commit();
         }
         public IQueryable<T> GetListByPage<T, TKey>(ref int Count, int pageIndex, int pageSize, Expression<Func<T, bool>> whereLambda, Expression<Func<T, TKey>> orderBy, bool isAscOrDesc) where T : IBaseEntity
         {
